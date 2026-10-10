@@ -2,7 +2,7 @@ import { usePageMeta } from '../hooks/usePageMeta'
 import LegalPage from './LegalPage'
 
 export default function Privacy() {
-  usePageMeta('Privacy Policy | DayTrip', 'How DayTrip collects, uses, and protects your personal information.')
+  usePageMeta('Privacy Policy | DayRide', 'How DayRide collects, uses, and protects your personal information.')
   return (
     <LegalPage title="Privacy Policy" updated="January 2026">
       <p>

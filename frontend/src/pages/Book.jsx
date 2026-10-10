@@ -16,7 +16,7 @@ import RouteMap from '../components/booking/RouteMap'
 // created silently on submit, see NewBooking) rather than re-implementing
 // booking twice.
 export default function Book() {
-  usePageMeta('Book a Taxi | DayTrip', 'Book a taxi online in seconds — enter your pickup and destination to get started.')
+  usePageMeta('Book a Taxi | DayRide', 'Book a taxi online in seconds — enter your pickup and destination to get started.')
   const { status } = useAuth()
   const [pickup, setPickup] = useState(null)
   const [destination, setDestination] = useState(null)

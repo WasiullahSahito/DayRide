@@ -29,7 +29,7 @@ const BUSINESS_ITEMS = [
 
 const PERSONAL_ITEMS = [
   { title: 'Taxi', description: 'Personalised Galway taxis — book a taxi your way.', icon: <Car className="size-4.5" />, to: '/register' },
-  { title: 'Book Now', description: 'Enjoy the full DayTrip booking experience — create your account.', icon: <Car className="size-4.5" />, to: '/book' },
+  { title: 'Book Now', description: 'Enjoy the full DayRide booking experience — create your account.', icon: <Car className="size-4.5" />, to: '/book' },
 ]
 
 const SERVICES_ITEMS = [

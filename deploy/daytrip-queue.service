@@ -3,7 +3,7 @@
 #           (edit User/Group below to the CyberPanel site user: ls -ld /home/dayride.ie)
 #           sudo systemctl daemon-reload && sudo systemctl enable --now daytrip-queue
 [Unit]
-Description=Daytrip Laravel queue worker
+Description=Dayride Laravel queue worker
 After=network.target postgresql.service
 
 [Service]

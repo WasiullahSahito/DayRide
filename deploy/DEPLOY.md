@@ -1,4 +1,4 @@
-# Deploying Daytrip to a Contabo VPS (Ubuntu 22.04, CyberPanel, PHP 8.3, PostgreSQL)
+# Deploying Dayride to a Contabo VPS (Ubuntu 22.04, CyberPanel, PHP 8.3, PostgreSQL)
 
 One domain, `dayride.ie`, serves everything:
 

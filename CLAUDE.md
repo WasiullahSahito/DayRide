@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project overview
 
-Daytrip (formerly "Lynk" — some identifiers still say `lynk`, e.g. the `lynk:auth-expired` window event, the `lynk-clone:token:v2` localStorage key, `APP_NAME=Lynk` in `.env.example`) is a taxi-booking platform: a **Laravel 13 JSON API** (repo root) plus a **separate React 19 SPA** (`frontend/`). See `README.md` for the feature list.
+Dayride (formerly "Lynk" — some identifiers still say `lynk`, e.g. the `lynk:auth-expired` window event, the `lynk-clone:token:v2` localStorage key, `APP_NAME=Lynk` in `.env.example`) is a taxi-booking platform: a **Laravel 13 JSON API** (repo root) plus a **separate React 19 SPA** (`frontend/`). See `README.md` for the feature list.
 
 The two halves are deployed independently and talk only over HTTP: the SPA calls `VITE_API_URL` (default `http://localhost:8000/api`) with a Sanctum bearer token. Laravel's `routes/web.php` still returns the default `welcome` view; it does not serve the SPA.
 

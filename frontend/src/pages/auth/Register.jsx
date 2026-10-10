@@ -15,7 +15,7 @@ import { isValidEmail, isValidPhone, isNotEmpty, minLength, passwordStrength } f
 // as router state from a business page's "Choose Business" CTA
 // (see PaymentPlanCard). Everyone else signs up as personal, no picker shown.
 export default function Register() {
-  usePageMeta('Register | DayTrip', 'Create your free DayTrip account in a few seconds.')
+  usePageMeta('Register | DayRide', 'Create your free DayRide account in a few seconds.')
   const { register } = useAuth()
   const toast = useToast()
   const navigate = useNavigate()
@@ -67,7 +67,7 @@ export default function Register() {
     setLoading(true)
     try {
       await register({ ...form, accountType })
-      toast.success('Account created — welcome to DayTrip!')
+      toast.success('Account created — welcome to DayRide!')
       navigate('/app/home', location.state?.rebook ? { state: { rebook: location.state.rebook } } : undefined)
     } catch (err) {
       setFormError(err.message || 'Something went wrong. Please try again.')

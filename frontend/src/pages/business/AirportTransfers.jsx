@@ -9,7 +9,7 @@ const AIRPORT = ADDRESS_BOOK.find((a) => a.label.includes('Airport'))
 const AIRPORT_REBOOK_STATE = { rebook: { pickup: AIRPORT, destination: null, stops: [] } }
 
 export default function AirportTransfers() {
-  usePageMeta('Airport Transfers | DayTrip', 'Reliable airport taxi transfers to and from Galway Airport, with flight tracking and fixed, upfront fares.')
+  usePageMeta('Airport Transfers | DayRide', 'Reliable airport taxi transfers to and from Galway Airport, with flight tracking and fixed, upfront fares.')
 
   return (
     <div>
@@ -22,7 +22,7 @@ export default function AirportTransfers() {
             Elevating your airport travel
           </h1>
           <p className="mt-4 text-white/70">
-            Heading away with family or on a business trip? Rely on DayTrip's Airport Taxi service to
+            Heading away with family or on a business trip? Rely on DayRide's Airport Taxi service to
             get you to Galway Airport safely and on time — or track your driver home the moment
             you land.
           </p>

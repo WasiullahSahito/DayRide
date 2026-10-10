@@ -13,7 +13,7 @@ import { useFareSettings } from '../../hooks/useFareSettings'
 import { useVehicleTypes } from '../../hooks/useVehicleTypes'
 
 export default function FareEstimator() {
-  usePageMeta('Fare Estimator | DayTrip', 'Enter your pickup and destination to start booking your journey.')
+  usePageMeta('Fare Estimator | DayRide', 'Enter your pickup and destination to start booking your journey.')
   const navigate = useNavigate()
   const vehicles = useVehicleTypes()
 

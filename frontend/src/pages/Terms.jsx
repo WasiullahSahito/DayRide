@@ -2,7 +2,7 @@ import { usePageMeta } from '../hooks/usePageMeta'
 import LegalPage from './LegalPage'
 
 export default function Terms() {
-  usePageMeta('Terms & Conditions | DayTrip', 'The terms and conditions for using the DayTrip taxi booking platform.')
+  usePageMeta('Terms & Conditions | DayRide', 'The terms and conditions for using the DayRide taxi booking platform.')
   return (
     <LegalPage title="Terms &amp; Conditions" updated="January 2026">
       <p>

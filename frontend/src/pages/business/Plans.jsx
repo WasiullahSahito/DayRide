@@ -4,7 +4,7 @@ import PaymentPlans from '../../components/business/PaymentPlans'
 import ContactCTA from '../../components/common/ContactCTA'
 
 export default function Plans() {
-  usePageMeta('Business Plans | DayTrip', 'Compare DayTrip Personal, Business, and Business+ accounts and choose the right fit for your organisation.')
+  usePageMeta('Business Plans | DayRide', 'Compare DayRide Personal, Business, and Business+ accounts and choose the right fit for your organisation.')
 
   return (
     <div>

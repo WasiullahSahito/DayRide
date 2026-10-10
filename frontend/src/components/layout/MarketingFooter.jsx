@@ -51,7 +51,7 @@ export default function MarketingFooter() {
       </div>
       <div className="border-t border-border px-4 py-5 sm:px-6">
         <div className="mx-auto flex max-w-7xl flex-col gap-3 text-xs text-ink-soft sm:flex-row sm:items-center sm:justify-between">
-          <span>&copy; {new Date().getFullYear()} DayTrip</span>
+          <span>&copy; {new Date().getFullYear()} DayRide</span>
           <span className="flex flex-wrap items-center gap-x-4 gap-y-1">
             <a href="tel:+353894298440" className="flex items-center gap-1.5 hover:text-ink">
               <Phone className="size-3.5" /> +353 89 429 8440

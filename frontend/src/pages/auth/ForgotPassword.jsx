@@ -8,7 +8,7 @@ import { isValidEmail } from '../../utils/validators'
 import * as authService from '../../services/authService'
 
 export default function ForgotPassword() {
-  usePageMeta('Forgot Password | DayTrip', 'Reset the password for your DayTrip account.')
+  usePageMeta('Forgot Password | DayRide', 'Reset the password for your DayRide account.')
   const location = useLocation()
   const [email, setEmail] = useState(location.state?.email || '')
   const [error, setError] = useState('')
