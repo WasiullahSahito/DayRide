@@ -42,7 +42,7 @@ class DatabaseSeeder extends Seeder
         $admin = User::factory()->create([
             'first_name' => 'Admin',
             'last_name' => 'User',
-            'email' => 'admin@daytrip.ie',
+            'email' => 'admin@dayride.ie',
             'password' => 'password123',
             'phone' => '+353879990000',
             'account_type' => 'personal',

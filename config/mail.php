@@ -111,7 +111,7 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'booking@daytrip.ie'),
+        'address' => env('MAIL_FROM_ADDRESS', 'booking@dayride.ie'),
         'name' => env('MAIL_FROM_NAME', env('APP_NAME', 'Laravel')),
     ],
 

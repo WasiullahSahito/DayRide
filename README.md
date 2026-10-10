@@ -1,12 +1,12 @@
-# Daytrip
+# Dayride
 
-Daytrip is a taxi booking platform for passengers, business customers and administrators. A Laravel 13 JSON API and a separate React 19 single-page application provide fare quotes, bookings, account management, saved journeys, card payments (Stripe and SumUp) and fleet administration.
+Dayride is a taxi booking platform for passengers, business customers and administrators. A Laravel 13 JSON API and a separate React 19 single-page application provide fare quotes, bookings, account management, saved journeys, card payments (Stripe and SumUp) and fleet administration.
 
-Live site: <https://daytrip.ie> (hosted on a Contabo VPS)
+Live site: <https://dayride.ie> (hosted on a Contabo VPS)
 
 The repository holds two independent JavaScript toolchains: the Laravel root asset pipeline and the user-facing React app in `frontend/`. The React app calls the Laravel API over HTTP. In production a single domain serves both: the React build is copied into Laravel's `public/` folder and the API answers under `/api`.
 
-> The project was previously called "Lynk". A few internal identifiers still carry that name (the `lynk:auth-expired` browser event, the `lynk-clone:token:v2` localStorage key and the `demo@lynk.ie` local seed account). They are not user-visible and can be renamed later.
+> The project was previously called "Daytrip" (domain `daytrip.ie`) and, before that, "Lynk". A few internal identifiers still carry the old names (the `lynk:auth-expired` browser event, the `lynk-clone:token:v2` localStorage key, the `demo@lynk.ie` local seed account, and the `daytrip` database name and `deploy/daytrip-queue.service` unit). They are not user-visible and can be renamed later.
 
 ## Features
 
@@ -162,7 +162,7 @@ Run migrations and seeders:
 php artisan migrate --seed
 ```
 
-The seeders create five vehicle types and five sample drivers. **Only in the `local` and `testing` environments** they also create a demo customer (`demo@lynk.ie`) and an admin (`admin@daytrip.ie`), both with the password `password123`. They are never created on a production server, so create your real admin as described under [Deployment](#deployment).
+The seeders create five vehicle types and five sample drivers. **Only in the `local` and `testing` environments** they also create a demo customer (`demo@lynk.ie`) and an admin (`admin@dayride.ie`), both with the password `password123`. They are never created on a production server, so create your real admin as described under [Deployment](#deployment).
 
 ## Environment Configuration
 
@@ -180,7 +180,7 @@ Copy `.env.example` to `.env` and fill in the values. Never commit `.env`, and n
 | `SUMUP_API_KEY`, `SUMUP_MERCHANT_CODE` | SumUp (backend-only). |
 | `SUMUP_SETUP_AMOUNT` | EUR amount on the checkout that saves a SumUp card. `0` saves the card without charging it; use a small amount if SumUp rejects zero. |
 | `FRONTEND_URL` | The site origin, used for CORS and the password-reset link in emails. Use exactly one origin. |
-| `VITE_API_URL` | React API base URL (default `http://localhost:8000/api`; `https://daytrip.ie/api` in production). |
+| `VITE_API_URL` | React API base URL (default `http://localhost:8000/api`; `https://dayride.ie/api` in production). |
 | `VITE_STRIPE_PUBLISHABLE_KEY` | Stripe.js publishable key (must match the mode of `STRIPE_SECRET`). |
 | `VITE_GOOGLE_MAPS_API_KEY` | Browser Google Maps key. Restrict it to your site's origin(s). |
 
@@ -278,12 +278,12 @@ The PHPUnit suite covers authentication, bookings (fare formula, seat check, own
 
 ## Deployment
 
-Daytrip runs in production on a **Contabo VPS** (Ubuntu 22.04) managed with CyberPanel (OpenLiteSpeed), using PHP 8.3 (LSPHP) and a local PostgreSQL that is not exposed to the internet. One domain serves everything:
+Dayride runs in production on a **Contabo VPS** (Ubuntu 22.04) managed with CyberPanel (OpenLiteSpeed), using PHP 8.3 (LSPHP) and a local PostgreSQL that is not exposed to the internet. One domain serves everything:
 
 | URL | Serves |
 | --- | --- |
-| `https://daytrip.ie/...` | The React build (static files in Laravel's `public/`) |
-| `https://daytrip.ie/api/...` | The Laravel API |
+| `https://dayride.ie/...` | The React build (static files in Laravel's `public/`) |
+| `https://dayride.ie/api/...` | The Laravel API |
 
 The complete step-by-step guide is in **[`deploy/DEPLOY.md`](deploy/DEPLOY.md)**. In short:
 
@@ -293,7 +293,7 @@ The complete step-by-step guide is in **[`deploy/DEPLOY.md`](deploy/DEPLOY.md)**
 4. Register a cron entry for `php artisan schedule:run` (every minute) and run the queue worker as a service (`deploy/daytrip-queue.service`).
 5. Build the frontend on your own machine (`cd frontend && npm ci && npm run build`, with `frontend/.env.production` filled in) and upload the contents of `frontend/dist` into `app/public`.
 6. Create the admin account by registering on the site and running, in `tinker`, `\App\Models\User::where('email', '...')->first()->forceFill(['is_admin' => true])->save();`.
-7. Point Stripe's webhook at `https://daytrip.ie/api/stripe/webhook`.
+7. Point Stripe's webhook at `https://dayride.ie/api/stripe/webhook`.
 
 To update later: run `deploy/deploy.sh` for the API (pull, install, migrate, cache, restart the queue) and rebuild and re-upload the frontend when it changes. Run `artisan` commands as the site's user, not as root, so that log and cache files stay writable by the web server.
 

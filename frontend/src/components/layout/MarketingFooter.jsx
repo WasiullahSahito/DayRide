@@ -56,8 +56,8 @@ export default function MarketingFooter() {
             <a href="tel:+353894298440" className="flex items-center gap-1.5 hover:text-ink">
               <Phone className="size-3.5" /> +353 89 429 8440
             </a>
-            <a href="mailto:booking@daytrip.ie" className="flex items-center gap-1.5 hover:text-ink">
-              <Mail className="size-3.5" /> booking@daytrip.ie
+            <a href="mailto:booking@dayride.ie" className="flex items-center gap-1.5 hover:text-ink">
+              <Mail className="size-3.5" /> booking@dayride.ie
             </a>
             <span className="flex items-center gap-1.5">
               <MapPin className="size-3.5" /> Galway, Ireland

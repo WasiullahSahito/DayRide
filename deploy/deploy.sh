@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 # Update the Laravel API on the VPS. Run as the site's system user (not root):
-#   cd /home/daytrip.ie/app && bash deploy/deploy.sh
+#   cd /home/dayride.ie/app && bash deploy/deploy.sh
 set -euo pipefail
 
-APP_DIR="${APP_DIR:-/home/daytrip.ie/app}"
+APP_DIR="${APP_DIR:-/home/dayride.ie/app}"
 PHP="${PHP:-/usr/local/lsws/lsphp83/bin/php}"
 COMPOSER="${COMPOSER:-/usr/local/bin/composer}"
 

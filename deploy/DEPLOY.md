@@ -1,20 +1,20 @@
 # Deploying Daytrip to a Contabo VPS (Ubuntu 22.04, CyberPanel, PHP 8.3, PostgreSQL)
 
-One domain, `daytrip.ie`, serves everything:
+One domain, `dayride.ie`, serves everything:
 
 | URL | What |
 |---|---|
-| `https://daytrip.ie/…` | React SPA (static files copied into Laravel's `public/`) |
-| `https://daytrip.ie/api/…` | Laravel API |
+| `https://dayride.ie/…` | React SPA (static files copied into Laravel's `public/`) |
+| `https://dayride.ie/api/…` | Laravel API |
 | PostgreSQL | `127.0.0.1:5432` on the same VPS, not exposed |
 
-Laravel lives in `/home/daytrip.ie/app`; the site's web root is `/home/daytrip.ie/app/public`.
+Laravel lives in `/home/dayride.ie/app`; the site's web root is `/home/dayride.ie/app/public`.
 
 ## 1. DNS and site (CyberPanel)
 
-1. `A` records for `daytrip.ie` and `www` pointing to the VPS IP.
-2. CyberPanel → Websites → Create Website: `daytrip.ie`, PHP 8.3.
-3. SSL → Issue SSL for `daytrip.ie`.
+1. `A` records for `dayride.ie` and `www` pointing to the VPS IP.
+2. CyberPanel → Websites → Create Website: `dayride.ie`, PHP 8.3.
+3. SSL → Issue SSL for `dayride.ie`.
 
 ## 2. Server prep (SSH as root)
 
@@ -43,10 +43,10 @@ Nightly backup (also copy it off the server):
 
 ## 4. Laravel
 
-Find the site user: `ls -ld /home/daytrip.ie` (owner column) = `SITEUSER`.
+Find the site user: `ls -ld /home/dayride.ie` (owner column) = `SITEUSER`.
 
 ```bash
-cd /home/daytrip.ie
+cd /home/dayride.ie
 git clone <your-repo-url> app && cd app
 cp deploy/.env.production.example .env && nano .env      # fill in every blank
 export COMPOSER_ALLOW_SUPERUSER=1
@@ -57,17 +57,17 @@ $PHP artisan migrate --force
 $PHP artisan db:seed --force          # vehicle types + drivers
 $PHP artisan storage:link
 $PHP artisan optimize
-chown -R SITEUSER:SITEUSER /home/daytrip.ie/app
+chown -R SITEUSER:SITEUSER /home/dayride.ie/app
 chmod -R ug+rw storage bootstrap/cache
 ```
 
-CyberPanel → Websites → `daytrip.ie` → Manage → **vHost Conf**: change
+CyberPanel → Websites → `dayride.ie` → Manage → **vHost Conf**: change
 `docRoot $VH_ROOT/public_html` to `docRoot $VH_ROOT/app/public`, save.
 
 Then replace Laravel's `.htaccess` with these rules (OpenLiteSpeed reads it from the web root; the CyberPanel "Rewrite Rules" tab only edits `public_html/.htaccess`, which is no longer the web root, so do not use it). The `Authorization` line matters: without it every logged-in request returns 401.
 
 ```bash
-cat > /home/daytrip.ie/app/public/.htaccess <<'EOF'
+cat > /home/dayride.ie/app/public/.htaccess <<'EOF'
 RewriteEngine On
 RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
 RewriteRule ^api(/.*)?$ index.php [L]
@@ -76,20 +76,20 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^ /index.html [L]
 EOF
-chown SITEUSER:SITEUSER /home/daytrip.ie/app/public/.htaccess
+chown SITEUSER:SITEUSER /home/dayride.ie/app/public/.htaccess
 /usr/local/lsws/bin/lswsctrl restart
 ```
 
-Test: `https://daytrip.ie/api/vehicle-types` returns JSON.
+Test: `https://dayride.ie/api/vehicle-types` returns JSON.
 
 ## 5. Scheduler and queue worker
 
 The app schedules `bookings:complete-due` every 5 minutes and queues its emails, so both are required.
 
 ```bash
-(crontab -u SITEUSER -l 2>/dev/null; echo '* * * * * cd /home/daytrip.ie/app && /usr/local/lsws/lsphp83/bin/php artisan schedule:run >> /dev/null 2>&1') | crontab -u SITEUSER -
+(crontab -u SITEUSER -l 2>/dev/null; echo '* * * * * cd /home/dayride.ie/app && /usr/local/lsws/lsphp83/bin/php artisan schedule:run >> /dev/null 2>&1') | crontab -u SITEUSER -
 
-cp /home/daytrip.ie/app/deploy/daytrip-queue.service /etc/systemd/system/
+cp /home/dayride.ie/app/deploy/daytrip-queue.service /etc/systemd/system/
 sed -i 's/CHANGE_ME/SITEUSER/g' /etc/systemd/system/daytrip-queue.service
 systemctl daemon-reload && systemctl enable --now daytrip-queue
 systemctl status daytrip-queue
@@ -104,21 +104,21 @@ npm ci
 npm run build
 ```
 
-Upload the **contents** of `frontend/dist` into `/home/daytrip.ie/app/public` (next to Laravel's `index.php`; do not delete Laravel's files there). Easiest: zip the contents of `dist`, upload the zip with CyberPanel File Manager, then Extract.
+Upload the **contents** of `frontend/dist` into `/home/dayride.ie/app/public` (next to Laravel's `index.php`; do not delete Laravel's files there). Easiest: zip the contents of `dist`, upload the zip with CyberPanel File Manager, then Extract.
 
-Test: `https://daytrip.ie` loads; open `/login` and reload, it must still load.
+Test: `https://dayride.ie` loads; open `/login` and reload, it must still load.
 
 ## 7. Third-party settings
 
-- **Stripe:** webhook endpoint `https://daytrip.ie/api/stripe/webhook`; its signing secret goes in `STRIPE_WEBHOOK_SECRET`; then `php artisan optimize`.
-- **Google Maps key:** allow the `daytrip.ie` origin.
+- **Stripe:** webhook endpoint `https://dayride.ie/api/stripe/webhook`; its signing secret goes in `STRIPE_WEBHOOK_SECRET`; then `php artisan optimize`.
+- **Google Maps key:** allow the `dayride.ie` origin.
 - **Mail:** external SMTP provider (Contabo blocks port 25); send a test booking.
 - **Admin account:** register on the site, then
-  `php artisan tinker --execute="\App\Models\User::where('email','you@daytrip.ie')->first()->forceFill(['is_admin'=>true])->save();"`
+  `php artisan tinker --execute="\App\Models\User::where('email','you@dayride.ie')->first()->forceFill(['is_admin'=>true])->save();"`
 
 ## 8. Releasing updates
 
-- API: `sudo -u SITEUSER bash /home/daytrip.ie/app/deploy/deploy.sh`
+- API: `sudo -u SITEUSER bash /home/dayride.ie/app/deploy/deploy.sh`
 - Frontend: rebuild locally (step 6) and re-upload the contents of `dist`.
 
 ## Troubleshooting
